@@ -24,7 +24,11 @@ type CallbackParams<T> = {
   onError?: (error: unknown) => void;
 };
 
-const endpointURL = "EXPO_PUBLIC_BOOKS_API_URL_PLACEHOLDER";
+const endpointURL = process.env.EXPO_PUBLIC_BOOKS_API_URL;
+
+if (!endpointURL) {
+  throw new Error("Missing EXPO_PUBLIC_BOOKS_API_URL. Set it in your .env file.");
+}
 
 export const getListOfBooks = async ({ onSuccess, onError }: CallbackParams<Book[]> = {}) => {
   try {
